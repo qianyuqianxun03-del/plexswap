@@ -181,7 +181,7 @@ export function LiveSwaps() {
     let addTimer: ReturnType<typeof setTimeout>
     const tick = () => {
       setSwaps((prev) => [makeSwap(idRef.current++, Date.now()), ...prev].slice(0, TOTAL))
-      addTimer = setTimeout(tick, rand(3000, 8000))
+      addTimer = setTimeout(tick, rand(3000, 180000))
     }
     addTimer = setTimeout(tick, rand(3000, 6000))
 
