@@ -1,20 +1,20 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useLanguage } from '@/components/language-provider'
 
 const COINS = [
   { sym: 'BTC', color: 'oklch(0.78 0.13 60)' }, { sym: 'ETH', color: 'oklch(0.7 0.12 270)' },
   { sym: 'USDT', color: 'oklch(0.74 0.16 162)' }, { sym: 'BNB', color: 'oklch(0.82 0.15 90)' },
-  { sym: 'SOL', color: 'oklch(0.65 0.2 310)' }, { sym: 'XRP', color: 'oklch(0.72 0.04 250)' },
-  { sym: 'USDC', color: 'oklch(0.7 0.15 230)' }, { sym: 'DOGE', color: 'oklch(0.8 0.13 85)' },
-  { sym: 'TRX', color: 'oklch(0.62 0.22 25)' }, { sym: 'TON', color: 'oklch(0.7 0.13 230)' }
+  { sym: 'SOL', color: 'oklch(0.65 0.2 310)' }, { sym: 'TON', color: 'oklch(0.7 0.13 230)' },
+  { sym: 'XMR', color: 'oklch(0.72 0.16 40)' }, { sym: 'DOGE', color: 'oklch(0.8 0.13 85)' },
+  { sym: 'XRP', color: 'oklch(0.72 0.04 250)' }, { sym: 'LINK', color: 'oklch(0.66 0.16 255)' }
 ]
 
 interface Swap {
   id: number
-  from: string
-  to: string
+  from: string; fromColor: string
+  to: string; toColor: string
   amount: string
   bornAt: number
 }
@@ -22,60 +22,74 @@ interface Swap {
 function rand(min: number, max: number) { return Math.random() * (max - min) + min }
 function pick<T>(arr: T[]): T { return arr[Math.floor(Math.random() * arr.length)] }
 
+function CoinDot({ sym, color }: { sym: string; color: string }) {
+  return (
+    <span className="flex size-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-background" style={{ backgroundColor: color }}>
+      {sym.slice(0, 3)}
+    </span>
+  )
+}
+
 export function LiveSwaps() {
   const { t } = useLanguage()
   const [swaps, setSwaps] = useState<Swap[]>([])
+  const [now, setNow] = useState(Date.now())
 
   useEffect(() => {
-    // 1. 初始化过去的数据，按时间倒序排列
-    const now = Date.now()
-    const initial: Swap[] = Array.from({ length: 15 }, (_, i) => ({
-      id: now - i * 600000,
-      from: pick(COINS).sym,
-      to: pick(COINS).sym,
-      amount: (Math.random() * 5000).toFixed(0),
-      bornAt: now - (i + 1) * rand(5, 25) * 60 * 1000
-    })).filter(s => s.from !== s.to)
+    // 1. 初始化模拟数据，时间锚点固定，刷新也不会错位
+    const initial: Swap[] = Array.from({ length: 12 }, (_, i) => {
+      const f = pick(COINS); const t = pick(COINS)
+      return {
+        id: Date.now() - i * 10000,
+        from: f.sym, fromColor: f.color,
+        to: t.sym, toColor: t.color,
+        amount: (Math.random() * 2000).toFixed(0),
+        bornAt: Date.now() - rand(1, 45) * 60000
+      }
+    }).sort((a, b) => b.bornAt - a.bornAt)
     
-    setSwaps(initial.sort((a, b) => b.bornAt - a.bornAt))
+    setSwaps(initial)
 
-    // 2. 模拟真实随机交易触发逻辑
-    const scheduleNext = () => {
-      const delay = rand(1, 20) * 60 * 1000
+    // 2. 模拟真实交易：每 1-15 分钟随机产生一笔新交易
+    const triggerNewSwap = () => {
       setTimeout(() => {
-        const newSwap = {
+        const f = pick(COINS); const t = pick(COINS)
+        setSwaps(prev => [{
           id: Date.now(),
-          from: pick(COINS).sym,
-          to: pick(COINS).sym,
-          amount: (Math.random() * 5000).toFixed(0),
+          from: f.sym, fromColor: f.color,
+          to: t.sym, toColor: t.color,
+          amount: (Math.random() * 2000).toFixed(0),
           bornAt: Date.now()
-        }
-        setSwaps(prev => [newSwap, ...prev].slice(0, 20))
-        scheduleNext()
-      }, delay)
+        }, ...prev].slice(0, 12))
+        triggerNewSwap()
+      }, rand(1, 15) * 60000)
     }
-    scheduleNext()
+    triggerNewSwap()
+
+    // 3. 实时更新时间标签
+    const clock = setInterval(() => setNow(Date.now()), 30000)
+    return () => clearInterval(clock)
   }, [])
 
   return (
-    <section className="py-16 border-y border-border bg-secondary/10">
-      <div className="mx-auto max-w-3xl px-4">
-        <div className="flex items-center gap-2 mb-8">
-           <span className="relative flex size-3">
-             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-             <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
-           </span>
-           <h2 className="text-2xl font-bold">{t.feed.title}</h2>
-        </div>
-        
-        <div className="space-y-1">
+    <section className="relative border-y border-border bg-secondary/20 py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t.feed.title}</h2>
+        <div className="mt-12 grid gap-4 lg:grid-cols-2">
           {swaps.map((s) => {
-            const minAgo = Math.floor((Date.now() - s.bornAt) / 60000)
+            const minAgo = Math.floor((now - s.bornAt) / 60000)
             return (
-              <div key={s.id} className="flex justify-between items-center p-4 rounded-lg bg-card/50 border border-border/50 hover:bg-card transition-colors">
-                <span className="font-mono text-sm">{s.amount} {s.from} → {s.to}</span>
+              <div key={s.id} className="flex items-center gap-3 rounded-xl border border-border bg-card/60 px-4 py-3">
+                <div className="flex -space-x-2">
+                  <CoinDot sym={s.from} color={s.fromColor} />
+                  <CoinDot sym={s.to} color={s.toColor} />
+                </div>
+                <div className="flex-1 text-sm">
+                  <span className="font-medium">{s.amount} {s.from}</span>
+                  <span className="text-muted-foreground"> → {s.to}</span>
+                </div>
                 <span className="text-xs text-muted-foreground">
-                  {minAgo < 1 ? '刚刚' : `${minAgo} 分钟前`}
+                  {minAgo < 1 ? t.feed.justNow : `${minAgo} ${t.feed.minutes}${t.feed.ago}`}
                 </span>
               </div>
             )
