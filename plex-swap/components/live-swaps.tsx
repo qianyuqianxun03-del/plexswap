@@ -57,7 +57,7 @@ export function LiveSwaps() {
           🔥 <span style={{ fontWeight: 500, color: '#f8fafc', marginLeft: '5px' }}>Live Swap Notification:</span>
         </div>
         <div className="swap-container text-sm text-gray-300" id="swap-notification">
-          An anonymous user just swapped <span className="swap-amount font-bold text-white">{data.amount} {data.from}</span> to <span className="swap-ticker font-bold text-white">{data.to}</span> via YBswap router ⚡
+          An anonymous user just swapped <span className="swap-amount font-bold text-white">{data.amount} {data.from}</span> to <span className="swap-ticker font-bold text-white">{data.to}</span> via PlexSwap router ⚡
         </div>
       </div>
     </div>
