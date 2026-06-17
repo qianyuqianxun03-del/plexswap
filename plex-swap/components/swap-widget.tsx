@@ -34,7 +34,7 @@ export function SwapWidget() {
         id="iframe-widget"
         title="PlexSwap Exchange"
         src={src}
-        className="h-[430px] w-full rounded-2xl border-0"
+        className="h-[421px] w-full rounded-2xl border-0"
       />
       {/*
         This script is what makes the "Change"/exchange button work.
