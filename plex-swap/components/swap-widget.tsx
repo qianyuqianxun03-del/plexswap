@@ -13,16 +13,5 @@ export function SwapWidget() {
                 style="border: none;"></iframe>
             <script defer type='text/javascript' src='https://changenow.io/embeds/exchange-widget/v2/stepper-connector.js'></script>
         </div>
-  return (
-    <div className="relative mx-auto w-full max-w-[420px] rounded-3xl border border-border bg-card p-2 shadow-2xl shadow-black/40">
-      <iframe
-        // Remount iframe on language change so widget re-renders in the right locale
-        key={widgetLang}
-        id="iframe-widget"
-        title="PlexSwap Exchange"
-        src={src}
-        className="h-[640px] w-full rounded-2xl border-0"
-      />
-    </div>
   )
 }
