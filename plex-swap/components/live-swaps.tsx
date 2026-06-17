@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '@/components/language-provider'
 
 const COINS = [
@@ -22,6 +22,13 @@ interface Swap {
 function rand(min: number, max: number) { return Math.random() * (max - min) + min }
 function pick<T>(arr: T[]): T { return arr[Math.floor(Math.random() * arr.length)] }
 
+// 金额限制逻辑：BTC/ETH 严格受限，其他随机
+function getAmount(sym: string) {
+  if (sym === 'BTC') return rand(0.01, 20).toFixed(4)
+  if (sym === 'ETH') return rand(0.2, 60).toFixed(3)
+  return rand(10, 5000).toFixed(0)
+}
+
 function CoinDot({ sym, color }: { sym: string; color: string }) {
   return (
     <span className="flex size-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-background" style={{ backgroundColor: color }}>
@@ -36,48 +43,47 @@ export function LiveSwaps() {
   const [now, setNow] = useState(Date.now())
 
   useEffect(() => {
-    // 1. 初始化模拟数据，时间锚点固定，刷新也不会错位
+    // 初始化交易池，使用固定偏移量，确保刷新后时间显示准确
     const initial: Swap[] = Array.from({ length: 12 }, (_, i) => {
       const f = pick(COINS); const t = pick(COINS)
       return {
-        id: Date.now() - i * 10000,
+        id: Date.now() - i,
         from: f.sym, fromColor: f.color,
         to: t.sym, toColor: t.color,
-        amount: (Math.random() * 2000).toFixed(0),
-        bornAt: Date.now() - rand(1, 45) * 60000
+        amount: getAmount(f.sym),
+        bornAt: Date.now() - rand(2, 60) * 60000
       }
-    }).sort((a, b) => b.bornAt - a.bornAt)
+    }).sort((a, b) => a.bornAt - b.bornAt)
     
     setSwaps(initial)
 
-    // 2. 模拟真实交易：每 1-15 分钟随机产生一笔新交易
-    const triggerNewSwap = () => {
+    // 随机交易触发器
+    const trigger = () => {
       setTimeout(() => {
         const f = pick(COINS); const t = pick(COINS)
-        setSwaps(prev => [{
+        setSwaps(prev => [...prev.slice(-11), {
           id: Date.now(),
           from: f.sym, fromColor: f.color,
           to: t.sym, toColor: t.color,
-          amount: (Math.random() * 2000).toFixed(0),
+          amount: getAmount(f.sym),
           bornAt: Date.now()
-        }, ...prev].slice(0, 12))
-        triggerNewSwap()
+        }])
+        trigger()
       }, rand(1, 15) * 60000)
     }
-    triggerNewSwap()
+    trigger()
 
-    // 3. 实时更新时间标签
     const clock = setInterval(() => setNow(Date.now()), 30000)
     return () => clearInterval(clock)
   }, [])
 
   return (
-    <section className="relative border-y border-border bg-secondary/20 py-16 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t.feed.title}</h2>
+    <section className="relative border-y border-border bg-secondary/20 py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <h2 className="text-3xl font-semibold tracking-tight">{t.feed.title}</h2>
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
           {swaps.map((s) => {
-            const minAgo = Math.floor((now - s.bornAt) / 60000)
+            const minAgo = Math.max(0, Math.floor((now - s.bornAt) / 60000))
             return (
               <div key={s.id} className="flex items-center gap-3 rounded-xl border border-border bg-card/60 px-4 py-3">
                 <div className="flex -space-x-2">
