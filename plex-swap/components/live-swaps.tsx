@@ -16,13 +16,13 @@ interface Swap {
   from: string; fromColor: string
   to: string; toColor: string
   amount: string
-  bornAt: number
+  // 我们不再用 bornAt 作为计算逻辑，而是存一个“过去的时间差(毫秒)”
+  timeOffset: number 
 }
 
 function rand(min: number, max: number) { return Math.random() * (max - min) + min }
 function pick<T>(arr: T[]): T { return arr[Math.floor(Math.random() * arr.length)] }
 
-// 金额限制逻辑：BTC/ETH 严格受限，其他随机
 function getAmount(sym: string) {
   if (sym === 'BTC') return rand(0.01, 20).toFixed(4)
   if (sym === 'ETH') return rand(0.2, 60).toFixed(3)
@@ -39,42 +39,27 @@ function CoinDot({ sym, color }: { sym: string; color: string }) {
 
 export function LiveSwaps() {
   const { t } = useLanguage()
-  const [swaps, setSwaps] = useState<Swap[]>([])
-  const [now, setNow] = useState(Date.now())
-
-  useEffect(() => {
-    // 初始化交易池，使用固定偏移量，确保刷新后时间显示准确
-    const initial: Swap[] = Array.from({ length: 12 }, (_, i) => {
-      const f = pick(COINS); const t = pick(COINS)
+  // 在内存中初始化数据，且只初始化一次
+  const [swaps] = useState(() => {
+    const now = Date.now();
+    return Array.from({ length: 12 }, (_, i) => {
+      const f = pick(COINS); const t = pick(COINS);
       return {
-        id: Date.now() - i,
+        id: i, // 使用固定ID而非时间戳
         from: f.sym, fromColor: f.color,
         to: t.sym, toColor: t.color,
         amount: getAmount(f.sym),
-        bornAt: Date.now() - rand(2, 60) * 60000
+        // 固化一个时间偏移量，这意味着刷新页面也不会改变这条数据的“过去程度”
+        timeOffset: (i + 1) * rand(2, 8) * 60000 
       }
-    }).sort((a, b) => a.bornAt - b.bornAt)
-    
-    setSwaps(initial)
+    })
+  })
 
-    // 随机交易触发器
-    const trigger = () => {
-      setTimeout(() => {
-        const f = pick(COINS); const t = pick(COINS)
-        setSwaps(prev => [...prev.slice(-11), {
-          id: Date.now(),
-          from: f.sym, fromColor: f.color,
-          to: t.sym, toColor: t.color,
-          amount: getAmount(f.sym),
-          bornAt: Date.now()
-        }])
-        trigger()
-      }, rand(1, 15) * 60000)
-    }
-    trigger()
-
-    const clock = setInterval(() => setNow(Date.now()), 30000)
-    return () => clearInterval(clock)
+  // 使用一个 tick 状态强制每分钟刷新一次 UI，确保“X分钟前”更新
+  const [, setTick] = useState(0)
+  useEffect(() => {
+    const timer = setInterval(() => setTick(n => n + 1), 60000)
+    return () => clearInterval(timer)
   }, [])
 
   return (
@@ -83,7 +68,7 @@ export function LiveSwaps() {
         <h2 className="text-3xl font-semibold tracking-tight">{t.feed.title}</h2>
         <div className="mt-12 grid gap-4 lg:grid-cols-2">
           {swaps.map((s) => {
-            const minAgo = Math.max(0, Math.floor((now - s.bornAt) / 60000))
+            const minAgo = Math.floor(s.timeOffset / 60000)
             return (
               <div key={s.id} className="flex items-center gap-3 rounded-xl border border-border bg-card/60 px-4 py-3">
                 <div className="flex -space-x-2">
