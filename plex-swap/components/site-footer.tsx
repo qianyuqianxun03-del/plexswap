@@ -49,7 +49,7 @@ export function SiteFooter() {
                 <li><a href="#faq" className="hover:text-foreground">{t.nav.faq}</a></li>
               </ul>
             </div>
-           {/* <div>
+           <div>
               <p className="text-sm font-medium text-foreground">
                 {t.footer.legal}
               </p>
@@ -65,7 +65,7 @@ export function SiteFooter() {
                   </a>
                 </li>
               </ul>
-            </div>*/}
+            </div>
             <div>
               <p className="text-sm font-medium text-foreground">
                 {t.footer.community}
