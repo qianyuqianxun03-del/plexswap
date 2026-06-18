@@ -136,7 +136,7 @@ export const dict = {
       domainText:
         '“Plex” 取自 complex（复杂）与 nexus（枢纽）的融合——寓意将复杂的跨币种兑换汇聚成一个简单的枢纽；“Swap” 直指核心功能：兑换。plexswap.com 简洁、好记、国际化，天然适合成为全球用户的兑换入口。',
       product: '产品',
-      company: '公司',
+      company: '平台',
       community: '联系我们',
       legal: '法律',
       rights: '版权所有',
