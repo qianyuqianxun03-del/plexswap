@@ -55,7 +55,7 @@ export function SiteFooter() {
               </p>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <a href="/terms" className="hover:text-foreground">
+                  <a href="https://www.plexswap.com/" className="hover:text-foreground">
                     Terms of Use
                   </a>
                 </li>
