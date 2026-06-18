@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PlexSwap | Terms of Service & Legal Framework</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #0b0f19;
+            color: #94a3b8;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(0, 229, 255, 0.03) 0%, transparent 40%);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo-link { text-decoration: none; }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #00e5ff 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            color: #00e5ff;
+            border-color: rgba(0, 229, 255, 0.3);
+            background: rgba(0, 229, 255, 0.05);
+        }
+        .legal-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 60px;
+        }
+        .legal-sidebar { position: sticky; top: 40px; height: fit-content; }
+        .legal-sidebar h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 20px; }
+        .toc-list { list-style: none; }
+        .toc-list li { margin-bottom: 12px; }
+        .toc-list a { color: #94a3b8; text-decoration: none; font-size: 14px; transition: color 0.3s; display: block; }
+        .toc-list a:hover { color: #00e5ff; }
+        .legal-content h1 { font-size: 32px; color: #f8fafc; font-weight: 700; margin-bottom: 10px; }
+        .update-date { font-size: 13px; color: #64748b; margin-bottom: 40px; display: block; }
+        .important-box { background: rgba(239, 68, 68, 0.04); border: 1px solid rgba(239, 68, 68, 0.15); border-radius: 12px; padding: 20px; color: #f8fafc; margin-bottom: 40px; font-size: 14px; }
+        .important-box strong { color: #ef4444; }
+        .legal-section { margin-bottom: 50px; scroll-margin-top: 40px; }
+        .legal-section h2 { font-size: 20px; color: #f8fafc; margin-bottom: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .legal-section h2::before { content: ''; width: 4px; height: 18px; background: #10b981; display: inline-block; border-radius: 2px; }
+        .legal-section p { margin-bottom: 16px; font-size: 14px; }
+        .legal-section ul { padding-left: 20px; margin-bottom: 16px; font-size: 14px; }
+        .legal-section li { margin-bottom: 8px; }
+        .highlight-text { color: #00e5ff; }
+        .cn-block { margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(255, 255, 255, 0.05); color: #64748b; }
+        footer {
+            max-width: 1200px;
+            margin: 100px auto 20px auto;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: #475569;
+            font-size: 12px;
+        }
+        @media screen and (max-width: 968px) {
+            .legal-container { grid-template-columns: 1fr; gap: 40px; padding: 0 20px; }
+            .legal-sidebar { display: none; }
+            header { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="https://www.plexswap.com/" class="back-btn">← Swap Board / 返回主页</a>
+    </header>
+
+    <div class="legal-container">
+        <aside class="legal-sidebar">
+            <h2>Index / 页面目录</h2>
+            <ul class="toc-list">
+                <li><a href="#terms-1">1. Acceptance & Effect / 条款效力</a></li>
+                <li><a href="#terms-2">2. Scope of Service / 服务范围</a></li>
+                <li><a href="#terms-3">3. Prohibited Jurisdictions / 限制区域</a></li>
+                <li><a href="#terms-4">4. Risk Disclosure / 风险披露</a></li>
+                <li><a href="#terms-5">5. Irreversibility / 交易不可逆</a></li>
+                <li><a href="#terms-6">6. AML & KYC Rules / 反洗钱风控</a></li>
+                <li><a href="#terms-7">7. Limitation of Liability / 免责声明</a></li>
+            </ul>
+        </aside>
+
+        <main class="legal-content">
+            <h1>Terms of Service / 服务条款</h1>
+            <span class="update-date">Last updated: June 15, 2017</span>
+
+            <div class="important-box">
+                <strong>IMPORTANT NOTICE:</strong> These Terms of Service constitute a binding legal agreement between you ("User") and <span class="highlight-text">PlexSwap.COM</span> ("We"). By accessing our platform or using our decentralized routing interfaces, you acknowledge that you have read, understood, and agreed to be bound by these terms.<br>
+                <div class="cn-block" style="color: #fda4af; padding-top: 10px; border: none;">
+                    <strong>重要提示：</strong> 本服务条款是您（用户）与 <span class="highlight-text">PlexSwap.COM</span> 之间达成的具约束力的法律协议。通过访问或使用我们的去中心化智能路由网络，即代表您已阅读并同意受此条款法律约束。
+                </div>
+            </div>
+
+            <section class="legal-section" id="terms-1">
+                <h2>1. Acceptance and Modifications</h2>
+                <p>We reserve the right to modify, add, or remove portions of these Terms at any time at our sole discretion. Any changes will become effective immediately upon being posted on the PlexSwap.COM website.</p>
+                <div class="cn-block">
+                    <strong>1. 条款接受与修改：</strong> 我们保留随时酌情修改或精简本服务条款的权利。修改文本一经在 PlexSwap.COM 网站公布即刻生效。
+                </div>
+            </section>
+
+            <section class="legal-section" id="terms-2">
+                <h2>2. Scope of Service & Non-Custodial Nature</h2>
+                <p>PlexSwap operates purely as a technical interface and decentralized web application layer. We provide users with a <strong>non-custodial</strong> cross-chain crypto exchange router.</p>
+                <div class="cn-block">
+                    <strong>2. 服务范围与非托管特征：</strong> PlexSwap 纯粹作为一个技术层接口与去中心化路由应用。我们为您提供<strong>非托管（Non-Custodial）</strong>的换币智能路由工具。
+                </div>
+            </section>
+
+            <section class="legal-section" id="terms-3">
+                <h2>3. Prohibited Jurisdictions</h2>
+                <p>By interacting with PlexSwap, you guarantee that you are not a citizen, resident, or entity of the United States, Cuba, Iran, North Korea, Crimea, Sudan, and Syria.</p>
+                <div class="cn-block">
+                    <strong>3. 禁止的司法管辖区：</strong> 使用本平台即代表您承诺自身不属于以下受限制或制裁区域的公民、居民或法律实体：美国、古巴、伊朗、朝鲜、克里米亚、苏丹、叙利亚。
+                </div>
+            </section>
+
+            <section class="legal-section" id="terms-4">
+                <h2>4. Digital Asset Risk Disclosure</h2>
+                <p>Cryptocurrency exchange markets carry intense volatility. Users carry <strong>100% absolute responsibility</strong> for entering accurate recipient wallet addresses.</p>
+                <div class="cn-block">
+                    <strong>4. 数字资产风险披露：</strong> 加密货币交易具有极高波动性。用户应对其输入的<strong>接收钱包地址的准确性</strong>负绝对责任。
+                </div>
+            </section>
+
+            <section class="legal-section" id="terms-5">
+                <h2>5. Irreversibility & Refund Exceptions</h2>
+                <p>Due to the decentralized mathematical immutability of distributed ledger technology, all broadcasted blockchain transactions are <strong>completely permanent and irreversible</strong>.</p>
+                <div class="cn-block">
+                    <strong>5. 交易不可逆性与退款异常：</strong> 鉴于分布式账本的天然物理特性，所有在链上广播的交易均是<strong>绝对不可逆转且无法撤销</strong>的。
+                </div>
+            </section>
+
+            <section class="legal-section" id="terms-6">
+                <h2>6. Automated AML, KYC & Risk Flags</h2>
+                <p>Our networks deploy real-time automated risk engine scanners. If an interactive wallet address triggers severe compliance alerts, PlexSwap reserves the right to pause processing.</p>
+                <div class="cn-block">
+                    <strong>6. 自动 AML/KYC 政策与风险触发：</strong> 平台部署有自动风险扫描系统。一旦系统检测到输入的链上地址涉及黑名单恶意洗钱源，本平台保留拦截或暂停交易的权利。
+                </div>
+            </section>
+
+            <section class="legal-section" id="terms-7">
+                <h2>7. Limitation of Liability</h2>
+                <p>To the maximum limit permitted under applicable law, the PlexSwap core operation team and tech stack providers shall not be held liable for any indirect, incidental, special, or consequential financial losses.</p>
+                <div class="cn-block">
+                    <strong>7. 免责声明与最高责任限制：</strong> 在法律允许的最大范围内，PlexSwap 的核心运营团队及接口服务商，在任何情况下均不对您因使用或未能使用本站接口而导致的任何资产损害承担连带赔偿责任。
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2017 PlexSwap.COM. All rights reserved. Global decentralized routing tech layer. This interface is only available to individuals over 18 years old.
+    </footer>
+
+</body>
+</html>
