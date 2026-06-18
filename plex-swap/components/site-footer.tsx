@@ -29,27 +29,15 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <nav className="grid grid-cols-2 gap-x-12 gap-y-6 sm:grid-cols-3">
+          <nav className="grid grid-cols-2 gap-x-12 gap-y-6 sm:grid-cols-4">
             <div>
               <p className="text-sm font-medium text-foreground">
                 {t.footer.product}
               </p>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <a href="#swap" className="hover:text-foreground">
-                    {t.nav.swap}
-                  </a>
-                </li>
-                <li>
-                  <a href="#how" className="hover:text-foreground">
-                    {t.nav.how}
-                  </a>
-                </li>
-                <li>
-                  <a href="#why" className="hover:text-foreground">
-                    {t.nav.why}
-                  </a>
-                </li>
+                <li><a href="#swap" className="hover:text-foreground">{t.nav.swap}</a></li>
+                <li><a href="#how" className="hover:text-foreground">{t.nav.how}</a></li>
+                <li><a href="#why" className="hover:text-foreground">{t.nav.why}</a></li>
               </ul>
             </div>
             <div>
@@ -57,16 +45,8 @@ export function SiteFooter() {
                 {t.footer.company}
               </p>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <a href="#security" className="hover:text-foreground">
-                    {t.nav.security}
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="hover:text-foreground">
-                    {t.nav.faq}
-                  </a>
-                </li>
+                <li><a href="#security" className="hover:text-foreground">{t.nav.security}</a></li>
+                <li><a href="#faq" className="hover:text-foreground">{t.nav.faq}</a></li>
               </ul>
             </div>
             <div>
@@ -75,13 +55,13 @@ export function SiteFooter() {
               </p>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>
-                  <a href="#" className="hover:text-foreground">
-                    Terms
+                  <a href="/terms" className="hover:text-foreground">
+                    Terms of Use
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-foreground">
-                    Privacy
+                  <a href="/privacy" className="hover:text-foreground">
+                    Privacy Policy
                   </a>
                 </li>
               </ul>
@@ -98,11 +78,7 @@ export function SiteFooter() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 hover:text-foreground"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                      className="h-4 w-4 fill-current"
-                    >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
                     X (Twitter)
