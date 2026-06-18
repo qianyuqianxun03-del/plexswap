@@ -92,7 +92,7 @@ export function SiteFooter() {
                     className="inline-flex items-center gap-2 hover:text-foreground"
                   >
                     <Send className="h-4 w-4" />
-                    Telegram @tangxao1122
+                    Telegram @plexswap_com
                   </a>
                 </li>
               </ul>
