@@ -86,7 +86,7 @@ export function SiteFooter() {
                 </li>
                 <li>
                   <a
-                    href="https://t.me/tangxao1122"
+                    href="https://t.me/plexswap_com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 hover:text-foreground"
