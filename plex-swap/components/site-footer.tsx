@@ -18,7 +18,18 @@ export function SiteFooter() {
             {t.footer.domainText}
           </p>
         </div>
-
+// 在 footer 对应的位置修改为：
+<div>
+  <p className="text-sm font-medium text-foreground">Legal</p>
+  <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+    <li>
+      <a href="/terms" className="hover:text-foreground">Terms of Use</a>
+    </li>
+    <li>
+      <a href="/privacy" className="hover:text-foreground">Privacy Policy</a>
+    </li>
+  </ul>
+</div>
         <div className="mt-12 flex flex-col items-start justify-between gap-8 lg:flex-row">
           <div className="max-w-xs">
             <PlexWordmark />
@@ -44,17 +55,7 @@ export function SiteFooter() {
               </ul>
             </div>
             {/* Legal - 确保这里使用了 Link */}
-            <div>
-              <p className="text-sm font-medium text-foreground">{t.footer.legal}</p>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link href="/terms" className="hover:text-foreground">Terms of Use</Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="hover:text-foreground">Privacy Policy</Link>
-                </li>
-              </ul>
-            </div>
+            
             {/* Community */}
             <div>
               <p className="text-sm font-medium text-foreground">{t.footer.community}</p>
