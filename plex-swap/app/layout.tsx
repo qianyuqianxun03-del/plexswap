@@ -49,6 +49,7 @@ export default function RootLayout({
       <body className="bg-background font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="7594da15-5639-4bb4-9c2c-12ed5e81e098"></script>
       </body>
     </html>
   )
